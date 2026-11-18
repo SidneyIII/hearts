@@ -593,7 +593,7 @@ function updateBoss(dt) {
   if (B.flash > 0) B.flash -= dt;
   const bx = B.x + 16, by = B.y + 16, px = S.p.px + 8, py = S.p.py + 8;
   const aim = Math.atan2(py - by, px - bx);
-  if (B.kind === 'malvoren' && B.phase === 1 && B.hp <= 3) {            // phase 2
+  if (B.kind === 'malvoren' && B.phase === 1 && B.hp <= 4) {            // phase 2
     B.phase = 2; B.vx *= 1.25; S.proj = []; B.t = 1.6; say(T().phase2);
   }
   B.t -= dt;
@@ -610,8 +610,8 @@ function updateBoss(dt) {
       else { B.burst = 12; B.burstT = 0; B.t = 1.5; }
     } else {
       const p2 = B.phase === 2, c = B.cyc % 3;
-      if (c === 1) { const n = p2 ? 17 : 15, off = Math.random(); for (let k = 0; k < n; k++) shoot(bx, by, off + k * Math.PI * 2 / n, p2 ? 74 : 66, 'orb'); B.t = p2 ? 1.0 : 1.2; }
-      else if (c === 2) { for (const a of p2 ? [-0.5, -0.3, -0.1, 0.1, 0.3, 0.5] : [-0.4, -0.2, 0, 0.2, 0.4]) shoot(bx, by, aim + a, p2 ? 112 : 100, 'orb'); B.t = p2 ? 0.95 : 1.15; }
+      if (c === 1) { const n = p2 ? 17 : 15, off = Math.random(); for (let k = 0; k < n; k++) shoot(bx, by, off + k * Math.PI * 2 / n, p2 ? 78 : 69, 'orb'); B.t = p2 ? 1.0 : 1.2; }
+      else if (c === 2) { for (const a of p2 ? [-0.5, -0.3, -0.1, 0.1, 0.3, 0.5] : [-0.4, -0.2, 0, 0.2, 0.4]) shoot(bx, by, aim + a, p2 ? 116 : 104, 'orb'); B.t = p2 ? 0.95 : 1.15; }
       else { B.burst = p2 ? 12 : 9; B.burstT = 0; B.t = p2 ? 1.5 : 1.7; }
     }
     sfx('shoot');
@@ -635,7 +635,7 @@ function updateBoss(dt) {
   } else {
     const o = S.orb, dx = bx - (o.x + 8), dy = by - (o.y + 8), d = Math.hypot(dx, dy);
     if (d < 14) {
-      B.hp--; B.flash = 0.45; S.orb = null; S.orbT = B.kind === 'malvoren' ? 1.4 : 1.1; sfx('boom');
+      B.hp--; B.flash = 0.45; S.orb = null; S.orbT = B.kind === 'malvoren' ? 1.55 : 1.1; sfx('boom');
       if (B.hp <= 0) { B.dead = true; S.proj = []; say(T().defeat, () => { S.L.map[6][7] = 'p'; sfx('gate'); }); }
     } else { o.x += dx / d * 240 * dt; o.y += dy / d * 240 * dt; }
   }
